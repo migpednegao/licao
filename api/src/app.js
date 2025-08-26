@@ -23,7 +23,10 @@ app.get('/',(req,res)=>{
         rotas:{
             'GET - Consultar veículo': `${rootDomain}/api/veiculo`,
             'GET - Consultar todos os veículos': `${rootDomain}/api/veiculos`,
-            'POST - Cadastrar veículo':`${rootDomain}/api/veiculo`
+            'POST - Cadastrar veículo':`${rootDomain}/api/veiculo`,
+            'PUT - Alterar veículos': `${rootDomain}/api/veiculos`,
+            'DELETE - Deletar veículos': `${rootDomain}/api/veiculos`,
+
         }
     });
 });
