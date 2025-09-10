@@ -88,3 +88,15 @@ export const deletar = async (id) => {
         if (cx) cx.release();
     }
 };
+
+// Consultar por nome
+export const consultarPorNome = async (modelo) => {
+    const cx = await pool.getConnection();
+    try {
+        const [rows] = await cx.query("SELECT * FROM veiculo WHERE modelo=?", [modelo]);
+        if (rows.length === 0) throw new Error("Veículo não encontrado");
+        return rows[0];
+    } finally {
+        if (cx) cx.release();
+    }
+};

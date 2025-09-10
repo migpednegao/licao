@@ -111,3 +111,22 @@ export const deletar = async (req, res) => {
         });
     }
 };
+
+export const consultarPorNome = async (req, res) => {
+    try {
+        const modelo = req.params.modelo;
+        const veiculo = await Veiculo.consultarPorNome(modelo);
+        res.status(200).json({
+            success: true,
+            status: 200,
+            veiculo
+        });
+    } catch (error) {
+        res.status(404).json({
+            success: false,
+            status: 404,
+            message: 'Veículo não encontrado',
+            error: error.message
+        });
+    }
+};
