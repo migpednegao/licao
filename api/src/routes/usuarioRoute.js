@@ -1,14 +1,17 @@
-import express from 'express';
-import * as usuario from '../controllers/usuario.js';
+import * as usuarioController from "../controllers/usuarioController.js";
+import autenticar from "../middlewares/autenticacao.js";
+import express from "express";
 
 const router = express.Router();
 
-router.get('/usuario',usuario.login);
-router.get('/usuario/:id',usuario.consultarPorId);
-router.get('/usuario/:id',usuario.deletar);
-router.get('/usuario/:id',usuario.consultarLogado);
-router.get('/usuarios',usuario.consultar);
-router.get('/usuario',usuario.cadastrar);
-router.get('/usuario/:id',usuario.alterar);
+router.post("/usuario",                         usuarioController.cadastrar);
+router.post("/usuario/login",                   usuarioController.login);
+router.get("/usuarios",             autenticar, usuarioController.listar);
+router.get("/usuario/:id",          autenticar, usuarioController.buscarPorId);
+router.get("/usuario",              autenticar, usuarioController.buscarUsuarioLogado); // Buscar usuário logado
+router.get("/usuario/email/:email", autenticar, usuarioController.buscarPorEmail);
+router.patch("/usuario/:id",        autenticar, usuarioController.atualizar);
+router.put("/usuario/:id",          autenticar, usuarioController.atualizarTudo);
+router.delete("/usuario/:id",       autenticar, usuarioController.deletar);
 
 export default router;
