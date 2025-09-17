@@ -18,6 +18,8 @@ export const cadastrar = async (veiculo) => {
             tipo_cambio,
             tipo_direcao } = veiculo; 
 
+
+            const usuario_id = req.loginId; // ← vindo do token autenticado
         // Query para inserir um novo veículo
         const query = `INSERT INTO veiculo (modelo, ano_fabricacao, ano_modelo, cor, num_portas, fotos, categoria_id, montadora_id, tipo_cambio, tipo_direcao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 

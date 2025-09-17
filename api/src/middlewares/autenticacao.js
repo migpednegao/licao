@@ -7,13 +7,23 @@ export default async function autenticar(req, res, next) {
         const authorizationHeader = req.headers['authorization'];
         
         if (!authorizationHeader) {
-            return responses.error(res,{statusCode: 498, message:"Token de autenticação não fornecido"});            
+            return res.status(498).json({
+                success: false,
+                message: "Token de autenticação não fornecido",
+                data: null,
+                quant_rows: 0
+            });            
         }
         
         const [bearer, token] = authorizationHeader.split(' ');
         
         if (bearer !== 'Bearer' || !token) {
-            return responses.error(res,{statusCode: 498, message:"Formato de token inválido"});            
+            return res.status(498).json({
+                success: false,
+                message: "Formato de token inválido",
+                data: null,
+                quant_rows: 0
+            });            
         }
 
         const [loginId] = token.split('.');

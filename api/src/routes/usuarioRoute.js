@@ -1,7 +1,6 @@
 import * as usuarioController from "../controllers/usuarioController.js";
 import autenticar from "../middlewares/autenticacao.js";
 import express from "express";
-
 const router = express.Router();
 
 router.post("/usuario",                         usuarioController.cadastrar);

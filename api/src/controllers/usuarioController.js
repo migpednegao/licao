@@ -11,9 +11,21 @@ export const cadastrar = async (req, res) => {
       return responses.error(res, { statusCode: 400, message: "Todos os campos são obrigatórios" });
     }
 
-    const newUsuario = await UsuarioModel.cadastrar(req.body);
+    const novoUsuario = await UsuarioModel.cadastrar(req.body);
 
-    return responses.created(res, { message: "Usuário cadastrado com sucesso", data: usuario });
+     const horas_validade = 24;
+    const sessao = await Sessoes.criar(novoUsuario.id, horas_validade);
+
+    const data = {
+      token: `${novoUsuario.id}.${sessao.token}`,
+      expiracao: sessao.validade,
+      usuario: novoUsuario
+    };
+
+    return responses.created(res, { 
+      message: "Usuário cadastrado com sucesso e sessão iniciada", 
+      data
+    });
 
   } catch (error) {
     return responses.error(res, { message: error.message });

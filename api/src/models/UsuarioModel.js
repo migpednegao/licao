@@ -25,7 +25,7 @@ export const cadastrar = async (usuario, cx = null) => {   // Função para cada
         // Desestrutura os dados recebidos do objeto usuário
         const { nome, email, senha, avatar } = usuario;
         // Query SQL para inserir um novo usuário
-        const query = "INSERT INTO Usuarios (nome, email, senha, avatar) VALUES (?, ?, ?, ?, ?)";
+        const query = "INSERT INTO Usuario (nome, email, senha, avatar) VALUES (?, ?, ?, ?)";
 
         // Criptografa a senha antes de salvar no banco
         const hashSenha = await bcrypt.hash(senha, 10);
@@ -120,7 +120,7 @@ export const listar = async (search = "", cx = null) => { // Função para lista
             // Obtém uma conexão do pool se não foi passada uma conexão
             localCx = await pool.getConnection();
         }
-        let query = "SELECT id,nome,email,avatar,createdAt,updatedAt FROM Usuarios";
+        let query = "SELECT id,nome,email,avatar,createdAt,updatedAt FROM Usuario";
         
         let values = [];
 
@@ -160,7 +160,7 @@ export const buscarPorId = async (id, cx = null) => { // Função para buscar um
             localCx = await pool.getConnection();
         }
         // Query SQL para buscar um usuário pelo ID
-        const query = "SELECT * FROM Usuarios WHERE id = ?";
+        const query = "SELECT * FROM Usuario WHERE id = ?";
         // Executa a query passando o ID como parâmetro
         const [rows] = await localCx.execute(query, [id]);
         // Retorna apenas o primeiro resultado (usuário encontrado)
@@ -193,7 +193,7 @@ export const buscarPorEmail = async (email, cx = null) => { // Função para bus
             localCx = await pool.getConnection();
         }
         // Query SQL para buscar usuário pelo e-mail
-        const query = "SELECT * FROM Usuarios WHERE email = ?";
+        const query = "SELECT * FROM Usuario WHERE email = ?";
         // Executa a query passando o e-mail como parâmetro
         const [rows] = await localCx.execute(query, [email]);
         // Retorna apenas o primeiro resultado
@@ -238,7 +238,7 @@ export const atualizarTudo = async (id, usuario, cx = null) => {  // U
         // Criptografa a senha antes de salvar no banco
         const hashSenha = await bcrypt.hash(senha, 10);
         
-        const query = "UPDATE Usuarios SET nome = ?, email = ?, senha = ?, avatar = ? WHERE id = ?";
+        const query = "UPDATE Usuario SET nome = ?, email = ?, senha = ?, avatar = ? WHERE id = ?";
         const values = [nome, email, hashSenha, avatar, id];
 
         // Executa a query e captura o resultado
@@ -315,7 +315,7 @@ export const atualizar = async (id, usuario, cx = null) => {  // U
         values.push(id);
 
         // Monta a query SQL dinamicamente
-        const query = `UPDATE Usuarios SET ${atributos.join(", ")} WHERE id = ?`;
+        const query = `UPDATE Usuario SET ${atributos.join(", ")} WHERE id = ?`;
        
         // Executa a query e captura o resultado
         const [result] = await localCx.execute(query, values);
@@ -359,7 +359,7 @@ export const deletar = async (id, cx = null) => {
         }
 
         // Query SQL para deletar um usuário por ID
-        const query = "DELETE FROM Usuarios WHERE id = ?";
+        const query = "DELETE FROM Usuario WHERE id = ?";
 
         // Executa a query e captura o resultado
         const [result] = await localCx.execute(query, [id]);
