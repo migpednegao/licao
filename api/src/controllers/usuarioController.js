@@ -2,7 +2,7 @@
 import * as UsuarioModel from "../models/UsuarioModel.js";
 import * as Sessoes from '../models/SessoesModel.js';
 import * as responses from '../utils/responses.js';
-
+//aaaaaaa
 export const cadastrar = async (req, res) => {
   try {
     const { nome, email, senha } = req.body;
